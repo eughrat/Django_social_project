@@ -1,14 +1,14 @@
 from django.db import IntegrityError
-from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth.mixins import (LoginRequiredMixin,PermissionRequiredMixin)
+from django.contrib.auth.mixins import (LoginRequiredMixin)
 from django.contrib import messages
 
 from django.urls import reverse
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from groups.models import Group,GroupMember
+from . import models
 
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
     fields = ('name','description')
@@ -56,6 +56,6 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
 
         else:
             membership.delete()
-            messages.succes(self.request,'You have left the group!')
+            messages.success(self.request,'You have left the group!')
 
         return super().get(request,*args,**kwargs)

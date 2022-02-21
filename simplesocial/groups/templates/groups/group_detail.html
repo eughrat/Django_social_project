@@ -1,4 +1,4 @@
-{% extends 'groups/base.html' %}
+{% extends 'groups/group_base.html' %}
 
 {% block pregroup %}
 
@@ -30,6 +30,7 @@
         {% for post in group.posts.all  %}
             {% include "posts/_post.html" %}
     {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock %}
