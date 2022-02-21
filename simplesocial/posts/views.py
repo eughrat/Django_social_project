@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from braces.views import SelectRelatedMixin
-
+from django.http import Http404
 from . import models
 
 from django.contrib.auth import get_user_model
@@ -25,6 +25,8 @@ class UserPost(generic.ListView):
         try:
             self.post_user = User.objects.prefetch_related('posts').get(username__iexact=self.kwargs.get('username'))
         except User.DoesNotExist:
+            raise Http404
+        else:
             return self.post_user.posts.all()
 
     def get_context_data(self, **kwargs):
