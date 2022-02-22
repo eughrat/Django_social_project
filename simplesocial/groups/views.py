@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views import generic
 from django.shortcuts import get_object_or_404
-from groups.models import Group, GroupMember
+from .models import Group, GroupMember
 from . import models
 
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
@@ -51,7 +51,7 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
                 group__slug = self.kwargs.get('slug')
             ).get()
 
-        except GroupMember.DoesNotExists:
+        except models.GroupMember.DoesNotExists:
             messages.warning(self.request,'Sorry you are not in this group!')
 
         else:
